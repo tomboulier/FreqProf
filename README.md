@@ -127,7 +127,7 @@ var cor ci.min ci.max p       stat   df       alt  method
 ![](https://i.imgur.com/gtViBsB.jpg)
   
 ```{r}
->freqprof(s58, window= .25, step = 1, resolution = 1, which= "sum")
+>freqprof(s58, window= round(0.25 * nrow(s58)), step = 1, resolution = 1, which= "sum")
 ```
 
 
