@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^archive$
+^cran-comments\.md$
+^revdep$
+^NEWS\.md$
