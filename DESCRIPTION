@@ -6,6 +6,7 @@ Authors@R: c(
     person("Thomas", "Boulier",, "thomas.boulier@polytechnique.edu", "aut"),
     person(c("Ronald", "E."), "Robertson",, "rrobertson@aibrt.org", c("cre", "aut")),
     person("Jonathan", "Mejia",, "mejiajon@yahoo.com", "ctb"),
+    person("Christine", "Mourani",, "cmourani12@yahoo.com", "ctb")
     person("AIBRT", email = "info@aibrt.org", role = "cph")
     )
 Title: Frequency Profiles Computing and Plotting
