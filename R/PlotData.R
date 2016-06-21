@@ -243,7 +243,8 @@ ggplot_fp <- function(data1,
             panel.grid.minor  = element_line(color  = "#e9e9e9"),
             axis.line         = element_line(color  = "#a8a8a8"),
             axis.ticks        = element_line(color  = "black", size = 0.5),
-            axis.ticks.length = unit(-0.2, "cm"))
+            axis.ticks.length = unit(-0.2, "cm")) +
+      theme_bw()
   })
   return(p)
 }
