@@ -11,7 +11,8 @@ The frequency profile is a method for visualizing an individuals' behaviors in r
 ![](https://i.imgur.com/9DvRzhW.png)
 
 
-Frequency profiles can be customized through adjustments to three parameters: __window size__, __step size__, and __resolution__.
+### Constructing a Frequency Profile
+* Frequency profiles can be adjusted by setting three parameters: __window size__, __step size__, and __resolution__.
   
 ![](https://i.imgur.com/gtViBsB.jpg)
 
