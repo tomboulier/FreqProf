@@ -125,7 +125,8 @@ $data
 
 
 ------
-### generate_dates - Generate a sequence of dates
+
+### 
 * Generate sequence of dates 
   * Arguments: (startdate, number of dates, increment by day or week)
 
@@ -140,51 +141,13 @@ $data
 [25] "2016-06-29" "2016-06-30" "2016-07-01" "2016-07-02" "2016-07-03" "2016-07-04" "2016-07-05"
 
 ```
-------
-### import_data - read a csv, bin, or fpw file and import it as a data.frame
-* Select a file from an interactive pop up window, or specify file path manually
-
-```{r}
-> import_data()
-```
-
-``` {r}
-> import_data("inst/extdata/S58-1-1.bin")
-```
-
-```{r}
-  V1 V2 V3 V4
-1  1  0  0  0
-2  0  0  0  0
-3  0  0  0  0
-4  0  0  0  0
-5  0  0  0  0
-6  0  0  0  0
-```
 
 ------
-### read.bin - Creates data.frame from a bin file
-* Produces data.frame with raw data
 
-```{r}
-> read.bin("inst/extdata/S58-1-1.bin")
-```
+### Statistical Comparison Functions
 
-```{r}
-  V1 V2 V3 V4
-1  1  0  0  0
-2  0  0  0  0
-3  0  0  0  0
-4  0  0  0  0
-5  0  0  0  0
-6  0  0  0  0
-```
-* If you have a file with extension .fpw you can use the function read.fpw
-
-------
 ### ks.testm - Kolmogorov-Smirnov test for multiple variable
 * K-S test for multiple variables (of the same name) in separate data.frames
-  * Arguments: (data1, data2 with same variables as data1, vector with names of variables)
 
 ```{r}
 > ks.testm(s58, s59, v)
@@ -197,10 +160,9 @@ $data
 3   V3 0 1
 4   V4 0 1
 ```
-------
-###cor.testm - Correlation test for multiple variables
+
+### cor.testm - Correlation test for multiple variables
 * Correlation test for multiple variables (of the same name) in separate data.frames
-  * Arguments: (data1, data2 with same variables as data1, correlation method spearman or pearson)
 
 ```{r}
 > cor.testm(s58, s59, method= "pearson")
@@ -213,6 +175,17 @@ var cor ci.min ci.max p       stat   df       alt  method
 3  V3   1      1      1 0 2637813758 3090 two.sided pearson
 4  V4   1      1      1 0        Inf 3090 two.sided pearson
 ```
+------
+
+### Other Functions
+
+##### Importing data
+* `import_data()` - Interactive method for importing a csv, bin, or fpw file as a data.frame
+* `read.bin` - Import a bin file to a data.frame
+* `read.fpw` - Import a fpw file to a data.frame
+
+##### Generating test data
+* `generate_dates` - Generate a sequence of dates
 
 
 Copyright American Institute for Behavioral Research and Technology (http://aibrt.org/).
