@@ -10,6 +10,7 @@ The frequency profile is a method for visualizing an individuals' behaviors in r
 
 ![](https://i.imgur.com/9DvRzhW.png)
 
+------
 
 ### Constructing a Frequency Profile
 * Frequency profiles can be adjusted by setting three parameters: __window size__, __step size__, and __resolution__.
@@ -57,15 +58,7 @@ data(s58)
 
 ### freqprof - Convert data to moving sum/proportion
 * Converts binary data to a list with information needed to create a frequency profile
-* Arguments:
-  data.behavior- data.frame with binary data 
-  window- size of window as a proportion of dataset
-  step- the number of bins a window advances at a time
-  resolution- the time interval in which data is being recorded
-  which- data as a sum or proportion
 
-
-  
 ```{r}
 > freqprof(s58, window= round(0.25 * nrow(s58)), step = 1, resolution = 1, which= "sum")
 ```
