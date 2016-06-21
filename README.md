@@ -48,7 +48,7 @@ data(s58)
 * This package includes a user-friendly interface - using the "Shiny App" framework - allowing people with no prior R programming experience to input their data, utilize the visualization tools, explore the effects of manipulating the parameters, and download publication quality plots.
 
 ```{r}
->runEx()
+> runEx()
 ```
 
 ![](https://i.imgur.com/zjvcQVn.png)
@@ -67,7 +67,7 @@ data(s58)
 
   
 ```{r}
->freqprof(s58, window= round(0.25 * nrow(s58)), step = 1, resolution = 1, which= "sum")
+> freqprof(s58, window= round(0.25 * nrow(s58)), step = 1, resolution = 1, which= "sum")
 ```
 
 
@@ -119,29 +119,11 @@ $data
   tick.every- spacing between plot tick marks.By default, N/30, where N is the number of time units
   label.every- label every X ticks, where X = label.every. By default, label.every = 3
 ```{r}
->> plot_freqprof(FPdata, gg = FALSE, multiPlot  = FALSE)
+> plot_freqprof(FPdata, gg = FALSE, multiPlot  = FALSE)
 ```
 
 ![](https://i.imgur.com/0nDqSD4.png)
 
-
-------
-
-### 
-* Generate sequence of dates 
-  * Arguments: (startdate, number of dates, increment by day or week)
-
-``` {r}
-> generate_dates("2016-06-05", 31, by = "day")
-
-```
-```{r}
- [1] "2016-06-05" "2016-06-06" "2016-06-07" "2016-06-08" "2016-06-09" "2016-06-10" "2016-06-11" "2016-06-12"
- [9] "2016-06-13" "2016-06-14" "2016-06-15" "2016-06-16" "2016-06-17" "2016-06-18" "2016-06-19" "2016-06-20"
-[17] "2016-06-21" "2016-06-22" "2016-06-23" "2016-06-24" "2016-06-25" "2016-06-26" "2016-06-27" "2016-06-28"
-[25] "2016-06-29" "2016-06-30" "2016-07-01" "2016-07-02" "2016-07-03" "2016-07-04" "2016-07-05"
-
-```
 
 ------
 
@@ -189,4 +171,4 @@ var cor ci.min ci.max p       stat   df       alt  method
 * `generate_dates` - Generate a sequence of dates
 
 
-Copyright American Institute for Behavioral Research and Technology (http://aibrt.org/).
+<sub>Copyright American Institute for Behavioral Research and Technology (http://aibrt.org/).</sub>
