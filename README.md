@@ -10,7 +10,7 @@ The frequency profile is a method for visualizing an individuals' behaviors in r
 
 ![](https://i.imgur.com/9DvRzhW.png)
 
-<sub> Data for the above graph comes from:  
+<sub> Data for the above graph can be found in `data` and `data-raw` and originates from:  
 Ordonez, F.J., de Toledo, P., Sanchis, A. (2013). Activity Recognition Using Hybrid Generative/Discriminative Models on Home Environments Using Binary Sensors. _Sensors_, 13, 5460-5477.
 </sub>
 
