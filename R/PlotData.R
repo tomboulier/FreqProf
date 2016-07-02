@@ -239,38 +239,34 @@ ggplot_fp <- function(data1,
                         breaks       = round(seq(xmin, xmax,
                                              by = tick.every * label.every))) +
       scale_y_continuous(limits = c(0,100), expand = c (0, 1))+
-      scale_color_discrete(name = paste0("Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
-                                         "\n",
+      scale_color_discrete(name = paste0("Data", "\n","\n",
+                                         "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
+                                         paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
+                                         "Parameters", "\n", "\n",
                                          "Window size", paste(c(rep(" ", 1)), sep = "", collapse = ""), " = ", window, "\n",
                                          "Step size" , paste(c(rep(" ", 7)), sep = "", collapse = ""), " = ",  step, "\n",
                                          "Resolution" , paste(c(rep(" ", 5)), sep = "", collapse = ""), " = ", resolution, "\n",
-                                         "\n",
-                                        "Behavior")) +  # Title of the Legend
+                                         paste(c(rep("-", 30)), sep = "", collapse = ""),"\n", "Legend")) +  # Title of the Legend
       theme_bw() +
-      theme(title = element_text(size = 17, face = "bold"),
-            axis.text.x  = element_text(size   = 12,
-                                        color  = "#3f3f3f",
-                                        margin = margin(t = 0.4, unit = "cm")),
-            axis.text.y  = element_text(size   = 12,
-                                        color  = "#3f3f3f",
-                                        margin = margin(r = 0.4, unit = "cm")),
-            axis.title.x = element_text(size   = 14,
-                                        face   = "bold",
-                                        margin = margin(t = 0.4, unit = "cm")),
-            axis.title.y = element_text(size   = 14,
-                                        face   = "bold",
-                                        margin = margin(r = 0.4, unit = "cm")),
-            legend.text       = element_text(size   = 12),
-            legend.title     = element_text(family = NULL, size = 10, color = "black", margin(t=2,b=2)),
-            legend.background = element_rect(fill = "white", colour = "#999999", linetype = "solid", size = 1),
-            panel.background  = element_rect(fill   = "#f6f6f6"),
-            panel.grid.major  = element_line(color  = "#e9e9e9"),
-            panel.grid.minor  = element_line(color  = "#e9e9e9"),
-            axis.line         = element_line(color  = "#a8a8a8"),
+      theme(plot.title = element_text(size = 17),
+            # Legend
+            legend.text       = element_text(size = 12, colour = "black"),
+            legend.title     = element_text(size = 12, colour = "black"),
+            legend.key         = element_rect(color = "white"),
+            legend.key.size = unit(1, "cm"),
+            legend.position=c(1,1.02), 
+            legend.justification=c(0, 1), 
+            plot.margin = unit(c(1, 10, 0.5, 0.5), "lines"),
+            legend.background = element_rect(fill = "white", colour = "#999999", linetype = "solid", size = 0.5),
+            # Axis ticks (inside the plot)
+            axis.text.x  = element_text(margin = margin(t = 0.4, unit = "cm")),
+            axis.text.y  = element_text(margin = margin(r = 0.4, unit = "cm")),
+            axis.title.x = element_text(margin = margin(t = 0.4, unit = "cm")),
+            axis.title.y = element_text(margin = margin(r = 0.4, unit = "cm")),
             axis.ticks        = element_line(color  = "black", size = 0.5),
-            axis.ticks.length = unit(-0.2, "cm"))
+            axis.ticks.length = unit(-0.2, "cm")
+            )
   })
-
 
   return(p)
   
