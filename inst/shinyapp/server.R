@@ -4,19 +4,25 @@ shinyServer(function(input, output, session) {
 
   getDataFromShiny = function(inFile){
 
-    if (is.null(inFile))
-      return(NULL)
+    if (is.null(inFile)){
+      filename = "S58-1-1.bin"
+      filepath = "../extdata/S58-1-1.bin"
+    } else {
+      filename = inFile$name
+      filepath = inFile$datapath
+    }
+      
 
     # reading a file, whose extension is either csv, bin or fpw,
     # and importing it as a data.frame
-    filename = inFile$name
+    
 
     file.extension = tolower(substr(filename,nchar(filename)-2,nchar(filename)))
 
     data.behavior = switch(file.extension,
-                           csv = read.csv(inFile$datapath),
-                           bin = read.bin(inFile$datapath),
-                           fpw = read.fpw(inFile$datapath))
+                           csv = read.csv(filepath),
+                           bin = read.bin(filepath),
+                           fpw = read.fpw(filepath))
 
     if(is.null(data.behavior)) stop("file extension must be either csv, fpw, or bin")
 
