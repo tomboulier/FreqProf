@@ -16,9 +16,9 @@ shinyServer(function(input, output, session) {
     # reading a file, whose extension is either csv, bin or fpw,
     # and importing it as a data.frame
     
-
+   
     file.extension = tolower(substr(filename,nchar(filename)-2,nchar(filename)))
-
+    library(FreqProf)
     data.behavior = switch(file.extension,
                            csv = read.csv(filepath),
                            bin = read.bin(filepath),
