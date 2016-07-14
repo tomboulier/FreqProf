@@ -35,6 +35,6 @@ Column {data-width=650}
 #       stop("Could not find example directory. Try reinstalling `FreqProf`"
 #            call. = FALSE)
 #     }
-
+    # shinyAppDir(appDir = appDir)
     shinyAppDir(appDir = "//ELGOOG/Users/admin/Documents/INTERN FOLDERS/STEPHANIE Chen/FreqProf_sc/inst/shinyapp")
 ```
