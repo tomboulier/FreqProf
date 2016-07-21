@@ -22,16 +22,19 @@ return(data1)
 
 #' Generate Random Binary Vectors
 #'
-#' @param nBehaviors 
-#' @param nrow 
-#' @param prStart 
-#' @param prEnd 
-#' @param prBy 
+#' @param nBehaviors number of columns to generate
+#' @param nrow bumber of rows to generate
+#' @param prStart starting probability
+#' @param prEnd ending probability
+#' @param prBy probability to sequence by
+#' 
+#' @importFrom stats rbinom
 #'
-#' @return
+#' @return a matrix of binary values
 #' @export
 #'
 #' @examples
+#' generate_behaviors(10, 10)
 generate_behaviors = function(nrow, nBehaviors,
                             prStart = 0.1, prEnd = 0.3, prBy = 0.001){
 
