@@ -1,7 +1,8 @@
 language: r
 cache: packages
 sudo: false
-before_install: cd subdirectory
+before_install: 
+  - cd subdirectory
 install:
   - Rscript -e 'install.packages(c("devtools","roxygen2","testthat"));devtools::install_deps("pkg")'
 script:
