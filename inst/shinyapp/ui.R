@@ -3,7 +3,7 @@
 library(shiny)
 
 shinyUI(fluidPage(
-  titlePanel("Frequency Profile"),
+  titlePanel("Frequency Profilerune"),
   sidebarLayout(
     
     sidebarPanel(
@@ -13,7 +13,7 @@ shinyUI(fluidPage(
       checkboxGroupInput("selected.behaviors", "Behaviors:",
                          c()),
       tags$hr(),
-      checkboxInput('ggplot', 'ggplot', FALSE),
+      checkboxInput('ggplot', 'ggplot', TRUE),
       helpText('Note: packages "ggplot2", "reshape2", and "grid" are required.'),
       checkboxInput('panel.in', 'Show left panel', TRUE),
       checkboxInput('panel.out', 'Show right panel', TRUE),

@@ -68,8 +68,12 @@ plot_freqprof = function(data.freqprof,
     yAxis = switch(type,
                    sum        = 'Moving sum',
                    proportion = 'Moving proportion')
+    y_limit = switch(type, 
+                     sum      = c(0,100),
+                     proportion = c(0,0.5))
   }
   
+
   # Color-blind friendly palette
   cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
                   "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -90,7 +94,8 @@ plot_freqprof = function(data.freqprof,
                    label.every = label.every,
                    window = window, 
                    title = title, 
-                   observations = observations
+                   observations = observations,
+                   y_limit = y_limit
                    )
     
     if(panel.in) {
@@ -225,7 +230,8 @@ ggplot_fp <- function(data1,
                       label.every = label.every,
                       window = window,
                       title = title, 
-                      observations = observations) {
+                      observations = observations,
+                      y_limit = y_limit) {
   
   p <- with(data1, {
      ggplot(data1,
@@ -242,7 +248,7 @@ ggplot_fp <- function(data1,
                         minor_breaks = round(seq(xmin, xmax, by = tick.every)),
                         breaks       = round(seq(xmin, xmax,
                                              by = tick.every * label.every))) +
-      scale_y_continuous(limits = c(0,100), expand = c (0, 1))+
+      scale_y_continuous(limits = y_limit, expand = c (0, 0))+
       scale_color_discrete(name = paste0("Data", "\n","\n",
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",

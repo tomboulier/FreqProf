@@ -11,7 +11,6 @@ shinyServer(function(input, output, session) {
       filename = inFile$name
       filepath = inFile$datapath
     }
-      
 
     # reading a file, whose extension is either csv, bin or fpw,
     # and importing it as a data.frame
@@ -27,9 +26,17 @@ shinyServer(function(input, output, session) {
     if(is.null(data.behavior)) stop("file extension must be either csv, fpw, or bin")
 
     # update selected behaviors
-    updateCheckboxGroupInput(session, "selected.behaviors",
-                             choices = names(data.behavior),
-                             selected = input$selected.behaviors)
+    if(is.null(input$selected.behaviors)){
+      
+      
+      updateCheckboxGroupInput(session, "selected.behaviors",
+                               choices = names(data.behavior),
+                               selected = c(names(data.behavior)))
+    }else{
+      updateCheckboxGroupInput(session, "selected.behaviors",
+                               choices = names(data.behavior),
+                               selected = input$selected.behaviors)
+    }
 
     data.behavior = data.behavior[,names(data.behavior) %in% input$selected.behaviors]
 
