@@ -1,6 +1,56 @@
-library(shiny)
+# module UI function
+shinyUI <- function(id){
+  ns <- NS(id)
+  
+  fillCol(flex=1, width = "100%", height = "100%")
 
-shinyServer(function(input, output, session) {
+    inputPanel(
+      fileInput('file', 'Choose File',
+                accept=c('.csv','.bin','.fpw')),
+      tags$hr(),
+      checkboxGroupInput("selected.behaviors", "Behaviors:",
+                         c(), selected = c()),
+      
+      
+      tags$hr(),
+      checkboxInput('ggplot', 'ggplot', FALSE),
+      helpText('Note: packages "ggplot2", "reshape2", and "grid" are required.'),
+      checkboxInput('panel.in', 'Show left panel', TRUE),
+      checkboxInput('panel.out', 'Show right panel', TRUE),
+      checkboxInput('multiplot', 'Multiplots', FALSE),
+      tags$hr(),
+      radioButtons('which', 'Moving function',
+                   c('Sum'='sum',
+                     'Proportion'='proportion'),
+                   'proportion'),
+      numericInput("window", "Window length:", min=1, max=100, value=25, step=1),
+      radioButtons('unit_length', 'length unit:',
+                   c('%'='percent',
+                     'bins'='bins')),
+      numericInput("step", "Step:", min=1, max=100, value=1,
+                   step=1),
+      numericInput("resolution", "Resolution:", min=1, max=10, value=1,
+                   step=1),
+      textInput("units", "Time units:", value = "sec", width = NULL),
+      numericInput("tick.every", "Tick every:", min=1, max=10, value=1,
+                   step=1),
+      numericInput("label.every", "Label every:", min=1, max=10, value=1,
+                   step=1),
+      tags$hr(),
+      downloadButton('downloadData', 'Download Data'),
+      tags$hr(),
+      downloadButton('downloadPlotPDF', 'Download Plot as PDF'),
+      downloadButton('downloadPlotPNG', 'Download Plot as PNG'),
+      numericInput("graphWidth", "Width (inches):", min=1, max=20, value=10, step=1),
+      numericInput("graphHeight", "Height (inches):", min=1, max=20, value=8, step=1)
+    )
+  
+    plotOutput("distPlot",height = "500px")
+}      
+
+
+# server function
+shiny <-function(input, output, session, stringsAsFactors) {
   
   getDataFromShiny = function(inFile){
     
@@ -18,7 +68,7 @@ shinyServer(function(input, output, session) {
     
     
     file.extension = tolower(substr(filename,nchar(filename)-2,nchar(filename)))
-    library(FreqProf)
+    
     data.behavior = switch(file.extension,
                            csv = read.csv(filepath),
                            bin = read.bin(filepath),
@@ -26,29 +76,38 @@ shinyServer(function(input, output, session) {
     
     if(is.null(data.behavior)) stop("file extension must be either csv, fpw, or bin")
     
-    # update selected behaviors
-    if(is.null(input$selected.behaviors)){
-      
-      
-      updateCheckboxGroupInput(session, "selected.behaviors",
-                               choices = names(data.behavior),
-                               selected = c(names(data.behavior)))
-    }else{
-      updateCheckboxGroupInput(session, "selected.behaviors",
-                               choices = names(data.behavior),
-                               selected = input$selected.behaviors)
+    # update selected behaviors(by default select all options)
+    if (is.null(input$selected.behaviors)){
+      checkboxGroupInput("selected.behaviors", 
+                         label = names(data.behavior), 
+                         choices = names(data.behavior),
+                         selected = names(data.behavior))
     }
     
-    data.behavior = data.behavior[,names(data.behavior) %in% input$selected.behaviors]
+    updateCheckboxGroupInput(session, "selected.behaviors",
+                             choices = names(data.behavior),
+                             selected = input$selected.behaviors)
     
-    if(is.null(ncol(data.behavior))){
+    #         updateCheckboxGroupInput(session, "selected.behaviors",
+    #                              choices = names(data.behavior),
+    #                              selected = input$selected.behaviors)
+    
+    #     if (is.null(input$selected.behaviors)){
+    #       behaviors_selected <- names(data.behavior) %in% input$selected.behaviors
+    #     } else {
+    #       behaviors_selected <- input$selected.behaviors
+    #     }
+    #     
+    data.behavior_1 = data.behavior[,names(data.behavior) %in% input$selected.behaviors]
+    
+    if(is.null(ncol(data.behavior_1))){
       # this means that only one behavior is selected
-      dat = as.data.frame(data.behavior)
+      dat = as.data.frame(data.behavior_1)
       names(dat) = input$selected.behaviors
       return(dat)
     }
     
-    if(ncol(data.behavior)>1) return(data.behavior)
+    if(ncol(data.behavior_1)>1) return(data.behavior_1)
     
     return(NULL)
   }
@@ -61,11 +120,13 @@ shinyServer(function(input, output, session) {
   }
   
   output$distPlot <- renderPlot({
-    data.behavior = getDataFromShiny(input$file)
-    if(is.null(data.behavior)) return(NULL)
+    data.behavior_1 <- reactive({
+      getDataFromShiny(input$file)
+    })
+    if(is.null(data.behavior_1)) return(NULL)
     
-    data.freqprof = freqprof(data.behavior,
-                             window = getWindowLength(input$unit_length,input$window,data.behavior),
+    data.freqprof = freqprof(data.behavior_1,
+                             window = getWindowLength(input$unit_length,input$window,data.behavior_1),
                              step = input$step,
                              resolution = input$resolution,
                              which = input$which)
@@ -82,12 +143,12 @@ shinyServer(function(input, output, session) {
   })
   
   observe({
-    data.behavior = getDataFromShiny(input$file)
-    if(is.null(data.behavior)) return(NULL)
+    data.behavior_1 = getDataFromShiny(input$file)
+    if(is.null(data.behavior_1)) return(NULL)
     
     # update range for window length
     if(input$unit_length == "bins"){
-      win = round(.25*nrow(data.behavior))
+      win = round(.25*nrow(data.behavior_1))
       updateSliderInput(session, "window", value = win,
                         min = 1, max = 4*win, step = 1)
     }
@@ -97,9 +158,9 @@ shinyServer(function(input, output, session) {
     }
     
     # update tick.every and label.every
-    t.every = round(nrow(data.behavior)/31)
+    t.every = round(nrow(data.behavior_1)/31)
     updateSliderInput(session, "tick.every", value = t.every,
-                      min = 1, max = nrow(data.behavior), step = 1)
+                      min = 1, max = nrow(data.behavior_1), step = 1)
     updateSliderInput(session, "label.every", value = 3,
                       min = 1, max = 100, step = 1)
   })
@@ -107,10 +168,10 @@ shinyServer(function(input, output, session) {
   output$downloadData <- downloadHandler(
     filename = "freqprof.csv",
     content = function(file) {
-      data.behavior = getDataFromShiny(input$file)
-      if(is.null(data.behavior)) return(NULL)
+      data.behavior_1 = getDataFromShiny(input$file)
+      if(is.null(data.behavior_1)) return(NULL)
       
-      data.freqprof = freqprof(data.behavior,
+      data.freqprof = freqprof(data.behavior_1,
                                window = input$window,
                                step = input$step,
                                resolution = input$resolution,
@@ -129,9 +190,9 @@ shinyServer(function(input, output, session) {
     filename = function() { paste0("ShinyPlot.pdf") },
     content = function(file) {
       pdf(file,width = input$graphWidth, height = input$graphHeight)
-      data.behavior = getDataFromShiny(input$file)
-      data.freqprof = freqprof(data.behavior,
-                               getWindowLength(input$unit_length,input$window,data.behavior),
+      data.behavior_1 = getDataFromShiny(input$file)
+      data.freqprof = freqprof(data.behavior_1,
+                               getWindowLength(input$unit_length,input$window,data.behavior_1),
                                step = input$step,
                                resolution = input$resolution,
                                which = input$which)
@@ -151,9 +212,9 @@ shinyServer(function(input, output, session) {
     filename = function() { paste0("ShinyPlot.png") },
     content = function(file) {
       png(file,width = input$graphWidth, height = input$graphHeight, units = 'in', res = 100)
-      data.behavior = getDataFromShiny(input$file)
-      data.freqprof = freqprof(data.behavior,
-                               window = getWindowLength(input$unit_length,input$window,data.behavior),
+      data.behavior_1 = getDataFromShiny(input$file)
+      data.freqprof = freqprof(data.behavior_1,
+                               window = getWindowLength(input$unit_length,input$window,data.behavior_1),
                                step = input$step,
                                resolution = input$resolution,
                                which = input$which)
@@ -169,6 +230,6 @@ shinyServer(function(input, output, session) {
         file.rename(paste0(file, ".png"), file)
     })
   
-})
+}
 
 
