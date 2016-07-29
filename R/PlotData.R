@@ -64,15 +64,18 @@ plot_freqprof = function(data.freqprof,
   xmax <- ifelse(test = panel.out, yes = max(t), no = x.panel.right)
   
   # If no custom yAxis label given, label according to data.freqprof$type
+  colMax <- function(data) sapply(data, max, na.rm = TRUE)
+  y_val<- res[,3:ncol(res)]
+  y_limit = max(colMax(y_val))
   if(is.null(yAxis)) {
     yAxis = switch(type,
                    sum        = 'Moving sum',
                    proportion = 'Moving proportion')
-    y_limit = switch(type, 
-                     sum      = c(0,100),
-                     proportion = c(0,0.5))
+    # y_expand_low = switch(type,
+    #                   sum = -0.5
+    #                   proportion = -0.1)
   }
-  
+
 
   # Color-blind friendly palette
   cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
@@ -92,19 +95,20 @@ plot_freqprof = function(data.freqprof,
                    xmax        = xmax,
                    tick.every  = tick.every,
                    label.every = label.every,
+                   # type = type,
                    window = window, 
                    title = title, 
                    observations = observations,
                    y_limit = y_limit
                    )
+
+    # if(panel.in) {
+    #   p = p + geom_vline(xintercept = x.panel.left)
+    # }
     
-    if(panel.in) {
-      p = p + geom_vline(xintercept = x.panel.left)
-    }
-    
-    if(panel.out) {
-      p = p + geom_vline(xintercept = x.panel.right) 
-    }
+    # if(panel.out) {
+    #   p = p + geom_vline(xintercept = x.panel.right) 
+    # }
     
     if (multiPlot) {
       p = p + facet_grid(variable ~ .) + theme(legend.position = "none")
@@ -248,17 +252,14 @@ ggplot_fp <- function(data1,
                         minor_breaks = round(seq(xmin, xmax, by = tick.every)),
                         breaks       = round(seq(xmin, xmax,
                                              by = tick.every * label.every))) +
-<<<<<<< HEAD
-      scale_y_continuous(limits = y_limit, expand = c (0, 0))+
-=======
-      if (data.freqprof$type == proportion){
-        scale_y_continuous(limits = c(0,100), expand = c (0, 1),
+
+  
+
+        scale_y_continuous(limits = c(-0.03*y_limit,1.03*y_limit), expand = c (-0.58, 0.6*y_limit)
                            # minor_breaks = round(seq(ymin, ymax)),
-                           breaks = round(seq(ymin, ymax))) 
-      }else{
-        scale_y_continuous(limits = c(0,1), expand = c (0, 0))
-      } +
->>>>>>> 473b9972601d5effc8a5bbc948e9abda378f67c1
+                           # breaks = round(seq(ymin, ymax))
+                           ) +
+   
       scale_color_discrete(name = paste0("Data", "\n","\n",
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
