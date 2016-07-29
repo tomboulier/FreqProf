@@ -248,7 +248,17 @@ ggplot_fp <- function(data1,
                         minor_breaks = round(seq(xmin, xmax, by = tick.every)),
                         breaks       = round(seq(xmin, xmax,
                                              by = tick.every * label.every))) +
+<<<<<<< HEAD
       scale_y_continuous(limits = y_limit, expand = c (0, 0))+
+=======
+      if (data.freqprof$type == proportion){
+        scale_y_continuous(limits = c(0,100), expand = c (0, 1),
+                           # minor_breaks = round(seq(ymin, ymax)),
+                           breaks = round(seq(ymin, ymax))) 
+      }else{
+        scale_y_continuous(limits = c(0,1), expand = c (0, 0))
+      } +
+>>>>>>> 473b9972601d5effc8a5bbc948e9abda378f67c1
       scale_color_discrete(name = paste0("Data", "\n","\n",
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
