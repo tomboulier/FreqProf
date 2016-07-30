@@ -103,14 +103,14 @@ plot_freqprof = function(data.freqprof,
                    y_limit = y_limit
                    )
 
-    # if(panel.in) {
-    #   p = p + geom_vline(xintercept = x.panel.left)
-    # }
-    
-    # if(panel.out) {
-    #   p = p + geom_vline(xintercept = x.panel.right) 
-    # }
-    
+    if(panel.in) {
+      p = p + geom_vline(xintercept = x.panel.left)
+    }
+
+    if(panel.out) {
+      p = p + geom_vline(xintercept = x.panel.right)
+    }
+
     if (multiPlot) {
       p = p + facet_grid(variable ~ .) + theme(legend.position = "none")
     }

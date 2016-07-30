@@ -3,7 +3,7 @@
 library(shiny)
 
 shinyUI(fluidPage(
-  titlePanel("Frequency Profilerune"),
+  titlePanel("Frequency Profile"),
   sidebarLayout(
     
     sidebarPanel(
