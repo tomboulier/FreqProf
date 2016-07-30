@@ -260,7 +260,7 @@ ggplot_fp <- function(data1,
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
                                          "Parameters", "\n", "\n",
-                                         "Window size", paste(c(rep(" ", 1)), sep = "", collapse = ""), " = ", round(window*0.033),"sec", "\n",
+                                         "Window size", paste(c(rep(" ", 1)), sep = "", collapse = ""), " = ", window ,"sec", "\n",
                                          "Step size" , paste(c(rep(" ", 7)), sep = "", collapse = ""), " = ",  step, "\n",
                                          "Resolution" , paste(c(rep(" ", 5)), sep = "", collapse = ""), " = ", resolution, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n", "Legend")) +  # Title of the Legend

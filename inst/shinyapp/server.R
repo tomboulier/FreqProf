@@ -11,12 +11,7 @@ shinyServer(function(input, output, session) {
       filename = inFile$name
       filepath = inFile$datapath
     }
-<<<<<<< HEAD
 
-=======
-    
-    
->>>>>>> 473b9972601d5effc8a5bbc948e9abda378f67c1
     # reading a file, whose extension is either csv, bin or fpw,
     # and importing it as a data.frame
     
@@ -42,11 +37,7 @@ shinyServer(function(input, output, session) {
                                choices = names(data.behavior),
                                selected = input$selected.behaviors)
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 473b9972601d5effc8a5bbc948e9abda378f67c1
     data.behavior = data.behavior[,names(data.behavior) %in% input$selected.behaviors]
     
     if(is.null(ncol(data.behavior))){
