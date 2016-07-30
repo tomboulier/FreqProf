@@ -13,7 +13,7 @@ shinyUI(fluidPage(
       checkboxGroupInput("selected.behaviors", "Behaviors:",
                          c()),
       tags$hr(),
-      checkboxInput('ggplot', 'ggplot', FALSE),
+      checkboxInput('ggplot', 'ggplot', TRUE),
       helpText('Note: packages "ggplot2", "reshape2", and "grid" are required.'),
       checkboxInput('panel.in', 'Show left panel', TRUE),
       checkboxInput('panel.out', 'Show right panel', TRUE),
@@ -36,6 +36,7 @@ shinyUI(fluidPage(
                    step=1),
       numericInput("label.every", "Label every:", min=1, max=10, value=1,
                    step=1),
+
       tags$hr(),
       downloadButton('downloadData', 'Download Data'),
       tags$hr(),

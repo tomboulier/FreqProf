@@ -7,7 +7,7 @@
 ggplot_fp(data1, resolution = resolution, step = step, yAxis = yAxis,
   xAxisUnits = xAxisUnits, xmin = xmin, xmax = xmax,
   tick.every = tick.every, label.every = label.every, window = window,
-  title = title, observations = observations)
+  title = title, observations = observations, y_limit = y_limit)
 }
 \arguments{
 \item{data1}{data formated into \code{freqprof} class.}
@@ -36,6 +36,8 @@ label.every = 3.}
 \item{title}{graph title}
 
 \item{observations}{number of rows}
+
+\item{y_limit}{is the maximun number in data.freqprof$data.}
 }
 \value{
 A ggplot of the frequency profile data in \code{data1}

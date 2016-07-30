@@ -50,6 +50,10 @@ plot_freqprof = function(data.freqprof,
   resolution <- data.freqprof$resolution
   type       <- data.freqprof$type
   
+  colMax <- function(data) sapply(data, max, na.rm = TRUE)
+  y_val<- res[,2:ncol(res)]
+  y_limit = max(colMax(y_val))
+  
   # being able to custom title
   if(is.null(title)) {
     title <- paste("Frequency Profile")
@@ -69,7 +73,8 @@ plot_freqprof = function(data.freqprof,
                    sum        = 'Moving sum',
                    proportion = 'Moving proportion')
   }
-  
+
+
   # Color-blind friendly palette
   cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
                   "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -88,19 +93,21 @@ plot_freqprof = function(data.freqprof,
                    xmax        = xmax,
                    tick.every  = tick.every,
                    label.every = label.every,
+                   # type = type,
                    window = window, 
                    title = title, 
-                   observations = observations
+                   observations = observations,
+                   y_limit = y_limit
                    )
-    
+
     if(panel.in) {
       p = p + geom_vline(xintercept = x.panel.left)
     }
-    
+
     if(panel.out) {
-      p = p + geom_vline(xintercept = x.panel.right) 
+      p = p + geom_vline(xintercept = x.panel.right)
     }
-    
+
     if (multiPlot) {
       p = p + facet_grid(variable ~ .) + theme(legend.position = "none")
     }
@@ -205,6 +212,7 @@ plot_freqprof = function(data.freqprof,
 #'   "sec".
 #' @param xmin x-axis minimum value
 #' @param xmax x-axis maximum value
+#' @param y_limit is the maximun number in data.freqprof$data. 
 #' @param tick.every the spacing between each tick. By default, N/30 where N is 
 #'   the number of time units.
 #' @param label.every label every X ticks, where X = label.every. By default, 
@@ -225,7 +233,8 @@ ggplot_fp <- function(data1,
                       label.every = label.every,
                       window = window,
                       title = title, 
-                      observations = observations) {
+                      observations = observations,
+                      y_limit = y_limit) {
   
   p <- with(data1, {
      ggplot(data1,
@@ -242,7 +251,12 @@ ggplot_fp <- function(data1,
                         minor_breaks = round(seq(xmin, xmax, by = tick.every)),
                         breaks       = round(seq(xmin, xmax,
                                              by = tick.every * label.every))) +
-      scale_y_continuous(limits = c(0,100), expand = c (0, 1))+
+
+  
+
+        scale_y_continuous(limits = c(-0.03*y_limit,1.2*y_limit), expand = c (-0.58, 0.7*y_limit)
+                           ) +
+   
       scale_color_discrete(name = paste0("Data", "\n","\n",
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
