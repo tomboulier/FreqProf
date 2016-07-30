@@ -1,5 +1,5 @@
 library(shiny)
-
+library(FreqProf)
 shinyServer(function(input, output, session) {
   
   getDataFromShiny = function(inFile){
@@ -17,7 +17,7 @@ shinyServer(function(input, output, session) {
     
     
     file.extension = tolower(substr(filename,nchar(filename)-2,nchar(filename)))
-    library(FreqProf)
+
     data.behavior = switch(file.extension,
                            csv = read.csv(filepath),
                            bin = read.bin(filepath),
