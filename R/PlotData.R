@@ -51,7 +51,7 @@ plot_freqprof = function(data.freqprof,
   type       <- data.freqprof$type
   
   colMax <- function(data) sapply(data, max, na.rm = TRUE)
-  y_val<- res[,3:ncol(res)]
+  y_val<- res[,2:ncol(res)]
   y_limit = max(colMax(y_val))
   
   # being able to custom title

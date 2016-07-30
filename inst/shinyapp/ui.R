@@ -36,8 +36,7 @@ shinyUI(fluidPage(
                    step=1),
       numericInput("label.every", "Label every:", min=1, max=10, value=1,
                    step=1),
-      numericInput("yRange","yRange", min = 0, max = 1, value = 0.1, 
-                   step = 0.1),
+
       tags$hr(),
       downloadButton('downloadData', 'Download Data'),
       tags$hr(),
