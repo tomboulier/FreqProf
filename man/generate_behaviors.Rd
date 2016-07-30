@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateData.R
 \name{generate_behaviors}
 \alias{generate_behaviors}
-\title{Title}
+\title{Generate Random Binary Vectors}
 \usage{
 generate_behaviors(nrow, nBehaviors, prStart = 0.1, prEnd = 0.3,
   prBy = 0.001)
@@ -22,7 +22,7 @@ generate_behaviors(nrow, nBehaviors, prStart = 0.1, prEnd = 0.3,
 a matrix of binary values
 }
 \description{
-Title
+Generate Random Binary Vectors
 }
 \examples{
 generate_behaviors(10, 10)

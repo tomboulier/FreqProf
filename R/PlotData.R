@@ -212,6 +212,7 @@ plot_freqprof = function(data.freqprof,
 #'   "sec".
 #' @param xmin x-axis minimum value
 #' @param xmax x-axis maximum value
+#' @param y_limit is the maximun number in data.freqprof$data. 
 #' @param tick.every the spacing between each tick. By default, N/30 where N is 
 #'   the number of time units.
 #' @param label.every label every X ticks, where X = label.every. By default, 

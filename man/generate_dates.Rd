@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateData.R
 \name{generate_dates}
 \alias{generate_dates}
-\title{Generate a sequence of dates}
+\title{Generate a Sequence of Dates}
 \usage{
 generate_dates(startDate, nDays, by = "day")
 }
@@ -18,7 +18,7 @@ Sequence of dates starting at startDate with length nDays by daily or
   weekly increments
 }
 \description{
-Generate a sequence of dates
+Generate a Sequence of Dates
 }
 \examples{
 generate_dates("2016-06-05", 31, by = "day")
