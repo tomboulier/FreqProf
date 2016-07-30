@@ -253,9 +253,7 @@ ggplot_fp <- function(data1,
 
   
 
-        scale_y_continuous(limits = c(-0.03*y_limit,1*y_limit), expand = c (-0.58, 0.7*y_limit)
-                           # minor_breaks = round(seq(ymin, ymax)),
-                           # breaks = round(seq(ymin, ymax))
+        scale_y_continuous(limits = c(-0.03*y_limit,1.2*y_limit), expand = c (-0.58, 0.7*y_limit)
                            ) +
    
       scale_color_discrete(name = paste0("Data", "\n","\n",
