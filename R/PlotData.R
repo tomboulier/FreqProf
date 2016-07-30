@@ -72,9 +72,6 @@ plot_freqprof = function(data.freqprof,
     yAxis = switch(type,
                    sum        = 'Moving sum',
                    proportion = 'Moving proportion')
-    # y_expand_low = switch(type,
-    #                   sum = -0.5
-    #                   proportion = -0.1)
   }
 
 
