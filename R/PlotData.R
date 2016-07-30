@@ -50,6 +50,10 @@ plot_freqprof = function(data.freqprof,
   resolution <- data.freqprof$resolution
   type       <- data.freqprof$type
   
+  colMax <- function(data) sapply(data, max, na.rm = TRUE)
+  y_val<- res[,3:ncol(res)]
+  y_limit = max(colMax(y_val))
+  
   # being able to custom title
   if(is.null(title)) {
     title <- paste("Frequency Profile")
@@ -64,9 +68,6 @@ plot_freqprof = function(data.freqprof,
   xmax <- ifelse(test = panel.out, yes = max(t), no = x.panel.right)
   
   # If no custom yAxis label given, label according to data.freqprof$type
-  colMax <- function(data) sapply(data, max, na.rm = TRUE)
-  y_val<- res[,3:ncol(res)]
-  y_limit = max(colMax(y_val))
   if(is.null(yAxis)) {
     yAxis = switch(type,
                    sum        = 'Moving sum',
@@ -255,7 +256,7 @@ ggplot_fp <- function(data1,
 
   
 
-        scale_y_continuous(limits = c(-0.03*y_limit,1.03*y_limit), expand = c (-0.58, 0.6*y_limit)
+        scale_y_continuous(limits = c(-0.03*y_limit,1*y_limit), expand = c (-0.58, 0.7*y_limit)
                            # minor_breaks = round(seq(ymin, ymax)),
                            # breaks = round(seq(ymin, ymax))
                            ) +
@@ -264,7 +265,7 @@ ggplot_fp <- function(data1,
                                          "Observations", paste(c(rep(" ", 0)), sep = "", collapse = ""), " = ", observations, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n",
                                          "Parameters", "\n", "\n",
-                                         "Window size", paste(c(rep(" ", 1)), sep = "", collapse = ""), " = ", window, "\n",
+                                         "Window size", paste(c(rep(" ", 1)), sep = "", collapse = ""), " = ", round(window*0.033),"sec", "\n",
                                          "Step size" , paste(c(rep(" ", 7)), sep = "", collapse = ""), " = ",  step, "\n",
                                          "Resolution" , paste(c(rep(" ", 5)), sep = "", collapse = ""), " = ", resolution, "\n",
                                          paste(c(rep("-", 30)), sep = "", collapse = ""),"\n", "Legend")) +  # Title of the Legend
